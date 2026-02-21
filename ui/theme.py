@@ -1,34 +1,35 @@
-
 import streamlit as st
 
 def apply_theme():
     st.markdown("""
     <style>
+      /* Compact top padding */
+      .block-container { padding-top: 1.2rem; }
+
+      /* Card component */
+      .card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 16px;
+        padding: 14px 14px;
+      }
+      .muted { color: rgba(248,250,252,0.75); }
+
       /* KPI cards */
       [data-testid="metric-container"]{
-        background: rgba(15,23,42,0.78);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 14px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.07);
+        border-radius: 16px;
         padding: 14px;
       }
 
-      /* Inputs */
-      [data-baseweb="input"] > div{
-        background: rgba(15,23,42,0.80) !important;
-        border: 1px solid rgba(255,255,255,0.12) !important;
-        border-radius: 10px !important;
-      }
-      [data-baseweb="input"] input{
-        color: #f8fafc !important;
+      /* Make dataframe corners softer */
+      [data-testid="stDataFrame"] {
+        border-radius: 14px;
+        overflow: hidden;
       }
 
-      /* Tabs */
-      button[data-baseweb="tab"]{ color:#cbd5e1 !important; font-weight: 600; }
-      button[data-baseweb="tab"][aria-selected="true"]{ color:#06b6d4 !important; }
-
-      /* Sidebar border */
-      [data-testid="stSidebar"]{
-        border-right: 1px solid rgba(255,255,255,0.08);
-      }
+      /* Tabs - more spacing */
+      button[data-baseweb="tab"] { font-weight: 650; }
     </style>
     """, unsafe_allow_html=True)
