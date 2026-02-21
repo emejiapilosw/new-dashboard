@@ -32,4 +32,17 @@ def apply_theme():
       /* Tabs - more spacing */
       button[data-baseweb="tab"] { font-weight: 650; }
     </style>
+
+    <style>
+      [data-testid="stAppViewContainer"]{
+        background: radial-gradient(1200px 600px at 10% 0%, rgba(6,182,212,0.10), rgba(0,0,0,0)) ,
+                    radial-gradient(1200px 600px at 90% 10%, rgba(99,102,241,0.10), rgba(0,0,0,0)) ,
+                    #071022 !important;
+      }
+      /* Slightly brighter headings */
+      h1,h2,h3 { letter-spacing: -0.02em; }
+      /* Subtle divider */
+      hr { border-color: rgba(255,255,255,0.08) !important; }
+    </style>
+
     """, unsafe_allow_html=True)
