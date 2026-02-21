@@ -1,9 +1,12 @@
-
 import streamlit as st
 import plotly.express as px
 from utils.formatting import format_numbers
 
 def render_group_tab(display_name, df, column_name):
+    """
+    display_name: etiqueta UI (ej 'Plataforma')
+    column_name: nombre real de columna en el Excel (ej 'Platform')
+    """
     st.subheader(display_name)
 
     if df is None or len(df) == 0:
@@ -29,18 +32,23 @@ def render_group_tab(display_name, df, column_name):
         key=f"topn_{column_name}"
     )
 
-    df_top = df.head(top_n)
+    df_top = df.head(top_n).copy()
 
-    # 📊 Barra horizontal (principal)
+    # asegurar numérico para Plotly
+    try:
+        import pandas as pd
+        df_top["Interacciones"] = pd.to_numeric(df_top["Interacciones"], errors="coerce").fillna(0)
+    except Exception:
+        pass
+
+    # 📊 Barra horizontal
     fig = px.bar(
         df_top,
         x="Interacciones",
         y=column_name,
         orientation="h",
-        height=460,
-        text="Interacciones"
+        height=460
     )
-    fig.update_traces(textposition="outside", cliponaxis=False)
     fig.update_layout(
         yaxis=dict(categoryorder="total ascending"),
         margin=dict(l=10, r=10, t=10, b=10),
@@ -64,6 +72,6 @@ def render_group_tab(display_name, df, column_name):
     )
     st.plotly_chart(pie, use_container_width=True)
 
-    # 📋 Tabla (detalle técnico)
+    # 📋 Tabla (detalle)
     st.caption("Detalle (ordenado por Interacciones ↓)")
-    st.dataframe(format_numbers(df_top.copy()), use_container_width=True)
+    st.dataframe(format_numbers(df.head(top_n).copy()), use_container_width=True)
